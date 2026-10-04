@@ -1,0 +1,8 @@
+name: SignEdit
+version: '${version}'
+
+main: hydrin.signEdit.SignEdit
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [Hydrintegral]

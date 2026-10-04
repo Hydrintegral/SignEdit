@@ -1,0 +1,16 @@
+package hydrin.signEdit;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public final class SignEdit extends JavaPlugin {
+
+    @Override
+    public void onEnable() {
+        // Plugin startup logic
+    }
+
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+    }
+}
