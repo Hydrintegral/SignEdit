@@ -25,16 +25,13 @@ public class SignTypeArgumentType implements CustomArgumentType.Converted<Materi
 
     @Override
     public Material convert(String string) throws CommandSyntaxException {
-        try {
-            for (Material sign : SIGNS) {
-                if (sign.name().equals(string.toUpperCase(Locale.ROOT))) {
-                    return sign;
-                }
+        for (Material sign : SIGNS) {
+            if (sign.name().equalsIgnoreCase(string)) {
+                return sign;
             }
-        } catch (IllegalArgumentException _) {
-            throw ERROR_INVALID_SIGN_TYPE.create(string);
         }
-        return null;
+
+        throw ERROR_INVALID_SIGN_TYPE.create(string);
     }
 
     @Override
@@ -42,10 +39,8 @@ public class SignTypeArgumentType implements CustomArgumentType.Converted<Materi
         for (final Material sign : SIGNS) {
             String name = sign.name();
 
-            if (name.startsWith(builder.getRemaining().toUpperCase(Locale.ROOT))) {
-                SIGNS.stream()
-                        .filter(s -> s.name().startsWith(name))
-                        .forEach(s -> builder.suggest(s.name().toLowerCase(Locale.ROOT)));
+            if (name.startsWith(builder.getRemainingLowerCase())) {
+                builder.suggest(name);
             }
         }
 

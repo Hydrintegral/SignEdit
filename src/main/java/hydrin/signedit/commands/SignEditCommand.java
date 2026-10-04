@@ -6,10 +6,11 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.plotsquared.core.permissions.Permission;
 import com.plotsquared.core.player.PlotPlayer;
+import hydrin.signedit.SignEdit;
 import hydrin.signedit.util.LegacyToMiniMessageConverter;
 import hydrin.signedit.util.Util;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -31,20 +32,20 @@ import org.bukkit.entity.Player;
 public class SignEditCommand {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
-    private static final DynamicCommandExceptionType ERROR_NO_PERMISSION = new DynamicCommandExceptionType(
-            _ -> new LiteralMessage("You do not have permission to run this command.")
+    private static final SimpleCommandExceptionType ERROR_NO_PERMISSION = new SimpleCommandExceptionType(
+            new LiteralMessage("You do not have permission to run this command.")
     );
-    private static final DynamicCommandExceptionType ERROR_NOT_A_SIGN = new DynamicCommandExceptionType(
-            _ -> new LiteralMessage("You must be looking at a sign to run this command.")
+    private static final SimpleCommandExceptionType ERROR_NOT_A_SIGN = new SimpleCommandExceptionType(
+            new LiteralMessage("You must be looking at a sign to run this command.")
     );
-    private static final DynamicCommandExceptionType ERROR_NO_PLOT_PERMISSION = new DynamicCommandExceptionType(
-            _ -> new LiteralMessage("You do not have permission to edit this sign.")
+    private static final SimpleCommandExceptionType ERROR_NO_PLOT_PERMISSION = new SimpleCommandExceptionType(
+            new LiteralMessage("You do not have permission to edit this sign.")
     );
 
     public static LiteralCommandNode<CommandSourceStack> register() {
         return Commands.literal("signedit")
                 .then(Commands.argument("line", IntegerArgumentType.integer(1, 4))
-                        .suggests((context, builder) -> {
+                        .suggests((_, builder) -> {
                             for (int i = 1; i <= 4; i++) {
                                 builder.suggest(i);
                             }
@@ -292,23 +293,21 @@ public class SignEditCommand {
             String permission,
             boolean checkPlotPermissions
     ) throws CommandSyntaxException {
-        // DynamicCommandExceptionType always requires an object, but we don't have anything that we want to provide
-        Object dummy = new Object();
-
+        // SimpleCommandExceptionType always requires an object, but we don't have anything that we want to provide
         Player player = context.getSource().getPlayerOrThrow();
 
         if (!player.hasPermission(permission)) {
-            throw ERROR_NO_PERMISSION.create(dummy);
+            throw ERROR_NO_PERMISSION.create();
         }
 
         Sign sign = getTargetedSign(player);
 
         if (sign == null) {
-            throw ERROR_NOT_A_SIGN.create(dummy);
+            throw ERROR_NOT_A_SIGN.create();
         }
 
-        if (checkPlotPermissions && !canEditSign(player, sign)) {
-            throw ERROR_NO_PLOT_PERMISSION.create(dummy);
+        if (SignEdit.hasPlotSquared() && checkPlotPermissions && !canEditSign(player, sign)) {
+            throw ERROR_NO_PLOT_PERMISSION.create();
         }
     }
 

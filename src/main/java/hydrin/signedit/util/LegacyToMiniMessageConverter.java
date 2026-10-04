@@ -27,7 +27,6 @@ public class LegacyToMiniMessageConverter {
             }
 
             switch (getFormattingType(substring)) {
-                case INVALID -> builder.append(string.charAt(i));
                 case VALID -> {
                     i++;
                     builder.append(translate(string.charAt(i)));
@@ -45,6 +44,7 @@ public class LegacyToMiniMessageConverter {
 
                     i++;
                 }
+                case NO_FORMAT -> builder.append(string.charAt(i));
             }
         }
 
@@ -64,7 +64,7 @@ public class LegacyToMiniMessageConverter {
                     // Iterate through indexes 2 to 7
                     for (int i = 2; i <= 7; i++) {
                         if (!(HexFormat.isHexDigit(substring.charAt(i)))) {
-                            return FormattingType.INVALID;
+                            return FormattingType.NO_FORMAT;
                         }
                     }
 
@@ -73,7 +73,7 @@ public class LegacyToMiniMessageConverter {
             }
         }
 
-        return FormattingType.INVALID;
+        return FormattingType.NO_FORMAT;
     }
 
     private static String translate(char c) {
@@ -116,8 +116,8 @@ public class LegacyToMiniMessageConverter {
 
     private enum FormattingType {
         VALID,
-        INVALID,
         HEX_COLOR,
-        ESCAPED
+        ESCAPED,
+        NO_FORMAT
     }
 }
