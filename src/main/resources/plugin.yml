@@ -1,8 +1,51 @@
 name: SignEdit
-version: '${version}'
+version: "${version}"
 
-main: hydrin.signEdit.SignEdit
-api-version: '26.2'
+main: hydrin.signedit.SignEdit
+api-version: "26.2"
 load: POSTWORLD
 
 authors: [Hydrintegral]
+
+depend:
+  - PlotSquared
+
+permissions:
+  signedit.edit:
+    description: "Grants access to /signedit <line> <text>"
+  signedit.replace:
+    description: "Grants access to /signedit replace <old text> <new text>"
+  signedit.dye:
+    description: "Grants access to /signedit dye <dye color>"
+  signedit.glow:
+    description: "Grants access to /signedit glow"
+  signedit.wax:
+    description: "Grants access to /signedit wax"
+  signedit.clickevent:
+    description: "Grants access to /signedit clickevent (clear)|(set <command>)"
+  signedit.type:
+    description:
+      "Grants access to /signedit type <sign type>"
+  signedit.print:
+    description:
+      "Grants access to /signedit print"
+
+  signedit.formatting.color:
+    description:
+      "Permits usage of the standard 16 colours, RGB colours, gradients and transitions"
+  signedit.formatting.style:
+    description:
+      "Permits usage of bold, strikethrough, underlined and italic text"
+  signedit.formatting.magic:
+    description:
+      "Permits usage of obfuscated text"
+  signedit.formatting.heads:
+    descriptions:
+      "Permits usage of player head sprites"
+  signedit.formatting.sprites:
+    description:
+      "Permits usage of texture atlas sprites"
+  signedit.formatting.misc:
+    description:
+      "Permits usage of keybinds, translation keys, selector patterns, and scoreboard and NBT data"
+

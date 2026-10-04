@@ -1,7 +1,6 @@
-package hydrin.signEdit.commands;
+package hydrin.signedit.commands;
 
 import com.mojang.brigadier.LiteralMessage;
-import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -15,11 +14,8 @@ import org.bukkit.DyeColor;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-public class DyeColorArgument implements CustomArgumentType.Converted<DyeColor, String> {
+public class DyeColorArgumentType implements CustomArgumentType.Converted<DyeColor, String> {
     private static final DynamicCommandExceptionType ERROR_INVALID_DYE_COLOR = new DynamicCommandExceptionType(
             _ -> new LiteralMessage("Invalid dye color.")
     );
@@ -36,7 +32,7 @@ public class DyeColorArgument implements CustomArgumentType.Converted<DyeColor, 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(final CommandContext<S> context, final SuggestionsBuilder builder) {
         for (final DyeColor dye : DyeColor.values()) {
-            final String name = dye.toString().toUpperCase(Locale.ROOT);
+            String name = dye.toString().toUpperCase(Locale.ROOT);
 
             if (name.startsWith(builder.getRemaining().toUpperCase(Locale.ROOT))) {
                 Arrays.stream(DyeColor.values())
