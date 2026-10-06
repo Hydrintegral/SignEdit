@@ -7,6 +7,7 @@ repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.enginehub.org/repo/")
+    maven("https://maven.playpro.com/")
 }
 
 dependencies {
@@ -14,7 +15,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:26.2.build.+")
     compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0")
     compileOnly("com.intellectualsites.plotsquared:plotsquared-core")
-    compileOnly("com.intellectualsites.plotsquared:plotsquared-bukkit") { isTransitive = false }
+    compileOnly("net.coreprotect:coreprotect:24.0")
 }
 
 java {

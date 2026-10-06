@@ -37,7 +37,7 @@ public class SignTypeArgumentType implements CustomArgumentType.Converted<Materi
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(final CommandContext<S> context, final SuggestionsBuilder builder) {
         for (final Material sign : SIGNS) {
-            String name = sign.name();
+            String name = sign.name().toLowerCase(Locale.ROOT);
 
             if (name.startsWith(builder.getRemainingLowerCase())) {
                 builder.suggest(name);

@@ -15,6 +15,7 @@ import hydrin.signedit.util.LegacyToMiniMessageConverter;
 import hydrin.signedit.util.Util;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
+import net.coreprotect.CoreProtectAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -31,6 +32,7 @@ import org.bukkit.entity.Player;
 
 public class SignEditCommand {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final CoreProtectAPI CORE_PROTECT_API = SignEdit.getCoreProtectAPI();
 
     private static final SimpleCommandExceptionType ERROR_NO_PERMISSION = new SimpleCommandExceptionType(
             new LiteralMessage("You do not have permission to run this command.")
@@ -57,6 +59,7 @@ public class SignEditCommand {
                                     checkCommandPredicates(context, "signedit.edit", true);
 
                                     Player player = context.getSource().getPlayerOrThrow();
+                                    String username = player.getName();
                                     int lineIndex = context.getArgument("line", int.class) - 1;
                                     String text = LegacyToMiniMessageConverter.convert(
                                             context.getArgument("text", String.class)
@@ -64,8 +67,12 @@ public class SignEditCommand {
 
                                     Sign sign = getTargetedSign(player);
 
+                                    tryLoggingRemoval(player, sign);
+
                                     sign.getTargetSide(player).line(lineIndex, Util.buildMiniMessage(player).deserialize(text));
                                     sign.update();
+
+                                    tryLoggingPlacement(player, sign);
 
                                     return Command.SINGLE_SUCCESS;
                                 })
@@ -87,6 +94,8 @@ public class SignEditCommand {
 
                                             MiniMessage miniMessage = Util.buildMiniMessage(player);
 
+                                            tryLoggingRemoval(player, sign);
+
                                             int i = 0;
                                             boolean success = false;
                                             for (Component line : side.lines()) {
@@ -100,11 +109,15 @@ public class SignEditCommand {
                                                 i++;
                                             }
 
-                                            sign.update();
-
                                             if (!success) {
                                                 player.sendRichMessage("<red>Nothing found to replace!");
+
+                                                return Command.SINGLE_SUCCESS;
                                             }
+
+                                            sign.update();
+
+                                            tryLoggingPlacement(player, sign);
 
                                             return Command.SINGLE_SUCCESS;
                                         })
@@ -121,8 +134,12 @@ public class SignEditCommand {
 
                                     Sign sign = getTargetedSign(player);
 
+                                    tryLoggingRemoval(player, sign);
+
                                     sign.getTargetSide(player).setColor(color);
                                     sign.update();
+
+                                    tryLoggingPlacement(player, sign);
 
                                     return Command.SINGLE_SUCCESS;
                                 })
@@ -137,8 +154,12 @@ public class SignEditCommand {
                             Sign sign = getTargetedSign(player);
                             SignSide side = sign.getTargetSide(player);
 
+                            tryLoggingRemoval(player, sign);
+
                             side.setGlowingText(!side.isGlowingText());
                             sign.update();
+
+                            tryLoggingPlacement(player, sign);
 
                             return Command.SINGLE_SUCCESS;
                         })
@@ -151,6 +172,8 @@ public class SignEditCommand {
 
                             Sign sign = getTargetedSign(player);
 
+                            tryLoggingRemoval(player, sign);
+
                             sign.setWaxed(!sign.isWaxed());
                             sign.update();
 
@@ -159,6 +182,8 @@ public class SignEditCommand {
                                             + (!sign.isWaxed() ? "<red>off" : "<green>on")
                                             + "<gray> for sign [<aqua>" + getSignXyz(sign) + "<gray>]"
                             );
+
+                            tryLoggingPlacement(player, sign);
 
                             return Command.SINGLE_SUCCESS;
                         })
@@ -175,9 +200,13 @@ public class SignEditCommand {
                                             Sign sign = getTargetedSign(player);
                                             SignSide side = sign.getTargetSide(player);
 
-                                            side.line(0, Util.clearClickEvents(side.line(0)));
+                                            tryLoggingRemoval(player, sign);
 
+                                            side.line(0, Util.clearClickEvents(side.line(0)));
                                             side.line(0, side.line(0).clickEvent(ClickEvent.runCommand(command)));
+
+                                            tryLoggingPlacement(player, sign);
+
                                             sign.update();
 
                                             return Command.SINGLE_SUCCESS;
@@ -193,8 +222,12 @@ public class SignEditCommand {
                                     Sign sign = getTargetedSign(player);
                                     SignSide side = sign.getTargetSide(player);
 
+                                    tryLoggingRemoval(player, sign);
+
                                     side.line(0, Util.clearClickEvents(side.line(0)));
                                     sign.update();
+
+                                    tryLoggingPlacement(player, sign);
 
                                     return Command.SINGLE_SUCCESS;
                                 })
@@ -215,9 +248,10 @@ public class SignEditCommand {
                                         return Command.SINGLE_SUCCESS;
                                     }
 
+                                    tryLoggingRemoval(player, sign);
+
                                     SignSide front = sign.getSide(Side.FRONT);
                                     SignSide back = sign.getSide(Side.BACK);
-
 
                                     // `sign` breaks if you use #setType() on it, hence this workaround
                                     Block block = sign.getBlock();
@@ -240,6 +274,8 @@ public class SignEditCommand {
                                     newSign.setWaxed(sign.isWaxed());
 
                                     newSign.update(true, false);
+
+                                    tryLoggingPlacement(player, newSign);
 
                                     return Command.SINGLE_SUCCESS;
                                 })
@@ -293,7 +329,6 @@ public class SignEditCommand {
             String permission,
             boolean checkPlotPermissions
     ) throws CommandSyntaxException {
-        // SimpleCommandExceptionType always requires an object, but we don't have anything that we want to provide
         Player player = context.getSource().getPlayerOrThrow();
 
         if (!player.hasPermission(permission)) {
@@ -325,12 +360,6 @@ public class SignEditCommand {
         return null;
     }
 
-    private static String getSignXyz(Sign sign) {
-        Location loc = sign.getLocation();
-
-        return loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ();
-    }
-
     private static boolean canEditSign(Player sender, Sign sign) {
         PlotPlayer<Player> player = PlotPlayer.from(sender);
 
@@ -356,5 +385,23 @@ public class SignEditCommand {
         }
 
         return true;
+    }
+
+    private static void tryLoggingRemoval(Player player, Sign sign) {
+        if (CORE_PROTECT_API != null) {
+            CORE_PROTECT_API.logRemoval(player.getName(), sign);
+        }
+    }
+
+    private static void tryLoggingPlacement(Player player, Sign sign) {
+        if (CORE_PROTECT_API != null) {
+            CORE_PROTECT_API.logPlacement(player.getName(), sign);
+        }
+    }
+
+    private static String getSignXyz(Sign sign) {
+        Location loc = sign.getLocation();
+
+        return loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ();
     }
 }

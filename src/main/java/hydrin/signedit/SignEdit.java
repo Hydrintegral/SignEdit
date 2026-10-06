@@ -2,18 +2,35 @@ package hydrin.signedit;
 
 import hydrin.signedit.commands.SignEditCommand;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import net.coreprotect.CoreProtect;
+import net.coreprotect.CoreProtectAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SignEdit extends JavaPlugin {
-    private static boolean plotsquared = false;
+    private static final String PLOTSQUARED_NAME = "PlotSquared";
+    private static final String COREPROTECT_NAME = "CoreProtect";
+
+    private static boolean plotSquared = false;
+    private static boolean coreProtect = true;
+
+    private static CoreProtectAPI coreProtectAPI;
 
     @Override
     public void onEnable() {
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlotSquared")) {
-            plotsquared = true;
-            System.out.println(plotsquared);
+        PluginManager plugins = Bukkit.getServer().getPluginManager();
+
+        if (plugins.isPluginEnabled(PLOTSQUARED_NAME)) { plotSquared = true; }
+        if (plugins.isPluginEnabled(COREPROTECT_NAME)) {
+            coreProtect = true;
+
+            coreProtectAPI = ((CoreProtect) plugins.getPlugin(COREPROTECT_NAME)).getAPI();
         }
+
+        System.out.println("P²: " + plotSquared);
+        System.out.println("CO: " + coreProtect);
 
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             event.registrar()
@@ -29,6 +46,14 @@ public final class SignEdit extends JavaPlugin {
     }
 
     public static boolean hasPlotSquared() {
-        return plotsquared;
+        return plotSquared;
+    }
+
+    public static boolean hasCoreProtect() {
+        return coreProtect;
+    }
+
+    public static CoreProtectAPI getCoreProtectAPI() {
+        return coreProtectAPI;
     }
 }
