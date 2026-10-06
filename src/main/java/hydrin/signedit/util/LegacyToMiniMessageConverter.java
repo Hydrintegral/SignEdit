@@ -100,7 +100,7 @@ public class LegacyToMiniMessageConverter {
             case 'k' -> { return "<obfuscated>"; }
             case 'l' -> { return "<bold>"; }
             case 'm' -> { return "<strikethrough>"; }
-            case 'n' -> { return "<underline>"; }
+            case 'n' -> { return "<underlined>"; }
             case 'o' -> { return "<italic>"; }
 
             // Reset
