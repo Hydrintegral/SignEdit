@@ -27,6 +27,7 @@ SignEdit also allows for customizable formatting permissions:
 | Type          | Formats                                                                     | Permission                    |
 | ------------- | --------------------------------------------------------------------------- | ----------------------------- |
 | Color         | The standard 16 colors and RGB colors.                                      | `signedit.formatting.color`   |
+| Shadow        | Modified shadow text color.                                                 | `signedit.formatting.shadow`  |
 | Style         | Bold, strikethrough, underline and italic text.                             | `signedit.formatting.style`   |
 | Magic         | Obfuscated text.                                                            | `signedit.formatting.magic`   |
 | Heads         | Player head sprites.                                                        | `signedit.formatting.heads`   |
