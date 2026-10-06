@@ -33,7 +33,10 @@ permissions:
 
   signedit.formatting.color:
     description:
-      "Permits usage of the standard 16 colours, RGB colours, gradients and transitions"
+      "Permits usage of the standard 16 colors, RGB colors, gradients and transitions"
+  signedit.formatting.shadow:
+    description:
+      "Permits usage of changing the shadow text color"    
   signedit.formatting.style:
     description:
       "Permits usage of bold, strikethrough, underlined and italic text"
