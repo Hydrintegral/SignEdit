@@ -1,6 +1,6 @@
 # SignEdit
 
-SignEdit is a simple, but advanced sign editor paper plugin with built in [PlotSquared](https://www.spigotmc.org/resources/plotsquared-v7.77506/) and [CoreProtect](https://modrinth.com/plugin/coreprotect)* integration, and more!
+SignEdit is a simple, but advanced sign editor paper plugin with built in [PlotSquared](https://www.spigotmc.org/resources/plotsquared-v7.77506/) and [CoreProtect](https://modrinth.com/plugin/coreprotect)* integration and more!
 
 ## Commands
 
@@ -20,7 +20,7 @@ Each command targets the sign face you're looking at:
 
 ## Formatting
 
-Both legacy formatting and [MiniMessage](https://docs.papermc.io/adventure/minimessage/format/) is supported, with legacy being converted to MiniMessage automatically.
+Both legacy formatting and [MiniMessage](https://docs.papermc.io/adventure/minimessage/format/) are supported, with legacy being converted to MiniMessage automatically.
 
 SignEdit also allows for customizable formatting permissions:
 
@@ -38,4 +38,4 @@ Font and reset tags are permitted by default.
 
 ## Notes
 
-\* CoreProtect's API currently lacks any way of logging sign text changes by official means, however, it will still log the sign being replaced, which should be more than enough information.
+\* CoreProtect's API currently lacks any way of logging sign text changes by official means; however, it will still log the sign being replaced, which should be more than enough information.
