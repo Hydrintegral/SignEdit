@@ -32,7 +32,7 @@ SignEdit also allows for customizable formatting permissions:
 | Magic         | Obfuscated text.                                                            | `signedit.formatting.magic`   |
 | Heads         | Player head sprites.                                                        | `signedit.formatting.heads`   |
 | Sprites       | Texture atlas sprites.                                                      | `signedit.formatting.sprites` |
-| Miscellaneous | Keybinds, translation keys, selector patternsm and scoreboard and NBT data. | `signedit.formatting.misc`    |
+| Miscellaneous | Keybinds, translation keys, selector patterns, and scoreboard and NBT data. | `signedit.formatting.misc`    |
 
 Font and reset tags are permitted by default.
 
