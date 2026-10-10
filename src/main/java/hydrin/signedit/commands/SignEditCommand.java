@@ -9,6 +9,7 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.plotsquared.core.permissions.Permission;
 import com.plotsquared.core.player.PlotPlayer;
+import hydrin.signedit.Permissions;
 import hydrin.signedit.SignEdit;
 import hydrin.signedit.util.LegacyToMiniMessageConverter;
 import hydrin.signedit.util.Util;
@@ -63,7 +64,7 @@ public class SignEditCommand {
 
                                     Sign sign = getTargetedSignOrThrow(player);
 
-                                    checkCommandPredicates(player, sign, "signedit.edit", true);
+                                    checkCommandPredicates(player, sign, Permissions.EDIT, true);
 
                                     sign.getTargetSide(player).line(lineIndex, Util.buildMiniMessage(player).deserialize(text));
 
@@ -85,7 +86,7 @@ public class SignEditCommand {
 
                                             Sign sign = getTargetedSignOrThrow(player);
 
-                                            checkCommandPredicates(player, sign, "signedit.edit", true);
+                                            checkCommandPredicates(player, sign, Permissions.REPLACE, true);
                                             MiniMessage miniMessage = Util.buildMiniMessage(player);
 
                                             SignSide side = sign.getTargetSide(player);
@@ -126,7 +127,7 @@ public class SignEditCommand {
 
                                     Sign sign = getTargetedSignOrThrow(player);
 
-                                    checkCommandPredicates(player, sign, "signedit.dye", true);
+                                    checkCommandPredicates(player, sign, Permissions.DYE, true);
 
                                     sign.getTargetSide(player).setColor(color);
 
@@ -143,7 +144,7 @@ public class SignEditCommand {
                             Player player = context.getSource().getPlayerOrThrow();
 
                             Sign sign = getTargetedSignOrThrow(player);
-                            checkCommandPredicates(player, sign, "signedit.glow", true);
+                            checkCommandPredicates(player, sign, Permissions.GLOW, true);
 
                             SignSide side = sign.getTargetSide(player);
 
@@ -162,7 +163,7 @@ public class SignEditCommand {
 
                             Sign sign = getTargetedSignOrThrow(player);
 
-                            checkCommandPredicates(player, sign, "signedit.wax", true);
+                            checkCommandPredicates(player, sign, Permissions.WAX, true);
 
                             sign.setWaxed(!sign.isWaxed());
 
@@ -188,7 +189,7 @@ public class SignEditCommand {
 
                                             Sign sign = getTargetedSignOrThrow(player);
 
-                                            checkCommandPredicates(player, sign, "signedit.clickevent.set", true);
+                                            checkCommandPredicates(player, sign, Permissions.CLICKEVENT, true);
 
                                             SignSide side = sign.getTargetSide(player);
 
@@ -209,7 +210,7 @@ public class SignEditCommand {
 
                                     Sign sign = getTargetedSignOrThrow(player);
 
-                                    checkCommandPredicates(player, sign, "signedit.clickevent.clear", true);
+                                    checkCommandPredicates(player, sign, Permissions.CLICKEVENT, true);
 
                                     SignSide side = sign.getTargetSide(player);
 
@@ -231,7 +232,7 @@ public class SignEditCommand {
 
                                     Sign sign = getTargetedSignOrThrow(player);
 
-                                    checkCommandPredicates(player, sign, "signedit.type", true);
+                                    checkCommandPredicates(player, sign, Permissions.TYPE, true);
 
                                     if (sign.getType().equals(type)) {
                                         player.sendRichMessage("<red>That sign is already that type!");
@@ -276,7 +277,7 @@ public class SignEditCommand {
 
                             Sign sign = getTargetedSignOrThrow(player);
 
-                            checkCommandPredicates(player, sign, "signedit.print", false);
+                            checkCommandPredicates(player, sign, Permissions.PRINT, false);
 
                             SignSide side = sign.getTargetSide(player);
 

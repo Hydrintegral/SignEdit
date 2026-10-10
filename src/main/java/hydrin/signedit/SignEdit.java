@@ -28,9 +28,6 @@ public final class SignEdit extends JavaPlugin {
             coreProtectAPI = ((CoreProtect) plugins.getPlugin(COREPROTECT_NAME)).getAPI();
         }
 
-        System.out.println("P²: " + plotSquared);
-        System.out.println("CO: " + coreProtect);
-
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             event.registrar()
                     .register(

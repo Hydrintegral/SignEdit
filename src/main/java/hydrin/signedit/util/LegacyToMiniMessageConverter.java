@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LegacyToMiniMessageConverter {
+public class    LegacyToMiniMessageConverter {
     private static final Set<Character> FORMATTING_CODES = CharacterAndFormat.defaults().stream()
             .map(CharacterAndFormat::character)
             .collect(Collectors.toSet());
@@ -79,22 +79,23 @@ public class LegacyToMiniMessageConverter {
     private static String translate(char c) {
         switch (c) {
             // Colors
-            case '0' -> { return "<black>"; }
-            case '1' -> { return "<dark_blue>"; }
-            case '2' -> { return "<dark_green>"; }
-            case '3' -> { return "<dark_aqua>"; }
-            case '4' -> { return "<dark_red>"; }
-            case '5' -> { return "<dark_purple>"; }
-            case '6' -> { return "<gold>"; }
-            case '7' -> { return "<gray>"; }
-            case '8' -> { return "<dark_gray>"; }
-            case '9' -> { return "<blue>"; }
-            case 'a' -> { return "<green>"; }
-            case 'b' -> { return "<aqua>"; }
-            case 'c' -> { return "<red>"; }
-            case 'd' -> { return "<light_purple>"; }
-            case 'e' -> { return "<yellow>"; }
-            case 'f' -> { return "<white>"; }
+            // Legacy formatting resets all decoration styles when using colors
+            case '0' -> { return "<reset><black>"; }
+            case '1' -> { return "<reset><dark_blue>"; }
+            case '2' -> { return "<reset><dark_green>"; }
+            case '3' -> { return "<reset><dark_aqua>"; }
+            case '4' -> { return "<reset><dark_red>"; }
+            case '5' -> { return "<reset><dark_purple>"; }
+            case '6' -> { return "<reset><gold>"; }
+            case '7' -> { return "<reset><gray>"; }
+            case '8' -> { return "<reset><dark_gray>"; }
+            case '9' -> { return "<reset><blue>"; }
+            case 'a' -> { return "<reset><green>"; }
+            case 'b' -> { return "<reset><aqua>"; }
+            case 'c' -> { return "<reset><red>"; }
+            case 'd' -> { return "<reset><light_purple>"; }
+            case 'e' -> { return "<reset><yellow>"; }
+            case 'f' -> { return "<reset><white>"; }
 
             // Decoration
             case 'k' -> { return "<obfuscated>"; }

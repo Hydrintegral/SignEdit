@@ -1,5 +1,6 @@
 package hydrin.signedit.util;
 
+import hydrin.signedit.Permissions;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -27,37 +28,37 @@ public class Util {
         builder.resolver(StandardTags.reset());
         builder.resolver(StandardTags.font());
 
-        if (sender.hasPermission("signedit.formatting.color")) {
+        if (sender.hasPermission(Permissions.FORMATTING_COLOR)) {
             builder.resolver(StandardTags.color());
             builder.resolver(StandardTags.gradient());
             builder.resolver(StandardTags.transition());
             builder.resolver(StandardTags.pride());
         }
 
-        if (sender.hasPermission("signedit.formatting.shadow")) {
+        if (sender.hasPermission(Permissions.FORMATTING_SHADOW)) {
             builder.resolver(StandardTags.shadowColor());
         }
 
-        if (sender.hasPermission("signedit.formatting.style")) {
+        if (sender.hasPermission(Permissions.FORMATTING_STYLE)) {
             builder.resolver(StandardTags.decorations(TextDecoration.BOLD));
             builder.resolver(StandardTags.decorations(TextDecoration.STRIKETHROUGH));
             builder.resolver(StandardTags.decorations(TextDecoration.UNDERLINED));
             builder.resolver(StandardTags.decorations(TextDecoration.ITALIC));
         }
 
-        if (sender.hasPermission("signedit.formatting.magic")) {
+        if (sender.hasPermission(Permissions.FORMATTING_MAGIC)) {
             builder.resolver(StandardTags.decorations(TextDecoration.OBFUSCATED));
         }
 
-        if (sender.hasPermission("signedit.formatting.heads")) {
+        if (sender.hasPermission(Permissions.FORMATTING_HEADS)) {
             builder.resolver(StandardTags.sequentialHead());
         }
 
-        if (sender.hasPermission("signedit.formatting.sprites")) {
+        if (sender.hasPermission(Permissions.FORMATTING_SPRITES)) {
             builder.resolver(StandardTags.sprite());
         }
 
-        if (sender.hasPermission("signedit.formatting.misc")) {
+        if (sender.hasPermission(Permissions.FORMATTING_MISC)) {
             builder.resolver(StandardTags.keybind());
             builder.resolver(StandardTags.translatable());
             builder.resolver(StandardTags.translatableFallback());
