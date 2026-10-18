@@ -8,7 +8,7 @@ public enum Command {
     WAX("wax", null, "Toggles the wax state."),
     CLICKEVENT_SET("clickevent set", "clickevent set <command>", "Sets the click event to run the specified command."),
     CLICKEVENT_CLEAR("clickevent clear", null, "Clears all click events."),
-    TYPE("type", "<signType>", "Sets the sign material to the specified type."),
+    TYPE("type", "type <signType>", "Sets the sign material to the specified type."),
     PRINT("print", null, "Prints copyable text of each line in chat."),
     HELP("help", "help", "Lists all commands and their functions.");
 
