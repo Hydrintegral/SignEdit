@@ -27,6 +27,7 @@ public class Util {
                 case BlockFace.NORTH_EAST, BlockFace.EAST_NORTH_EAST, BlockFace.EAST_SOUTH_EAST -> dir.setFacing(BlockFace.EAST);
                 case BlockFace.SOUTH_EAST, BlockFace.SOUTH_SOUTH_EAST, BlockFace.SOUTH_SOUTH_WEST -> dir.setFacing(BlockFace.SOUTH);
                 case BlockFace.SOUTH_WEST, BlockFace.WEST_SOUTH_WEST, BlockFace.WEST_NORTH_WEST -> dir.setFacing(BlockFace.WEST);
+                default -> {}
             }
 
             return dir;

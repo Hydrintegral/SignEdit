@@ -1,6 +1,6 @@
 # SignEdit
 
-SignEdit is a simple, but advanced sign editor paper plugin with built in [PlotSquared](https://www.spigotmc.org/resources/plotsquared-v7.77506/) and [CoreProtect](https://modrinth.com/plugin/coreprotect)* integration and more!
+SignEdit is a simple, but advanced sign editor paper plugin with built in [PlotSquared](https://www.spigotmc.org/resources/plotsquared-v7.77506/) and [CoreProtect](https://modrinth.com/plugin/coreprotect) integration and more!
 
 ## Commands
 
@@ -36,7 +36,3 @@ SignEdit also allows for customizable formatting permissions:
 | Miscellaneous | Keybinds, translation keys, selector patterns, and scoreboard and NBT data. | `signedit.formatting.misc`    |
 
 Font and reset tags are permitted by default.
-
-## Notes
-
-\* CoreProtect's API currently lacks any way of logging sign text changes by official means; however, it will still log the sign being replaced, which should be more than enough information.

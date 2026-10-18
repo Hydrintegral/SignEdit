@@ -27,12 +27,12 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
-import org.bukkit.block.data.Rotatable;
 import org.bukkit.block.data.Waterlogged;
 import org.bukkit.block.sign.Side;
 import org.bukkit.block.sign.SignSide;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 
 public class SignEditCommand {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
@@ -70,7 +70,8 @@ public class SignEditCommand {
 
                                     checkCommandPredicates(player, sign, Permissions.EDIT, true);
 
-                                    SignSide side = sign.getTargetSide(player);
+                                    Side frontOrBack = sign.getInteractableSideFor(player);
+                                    SignSide side = sign.getSide(frontOrBack);
                                     ClickEvent<?> clickEvent = Util.getFirstClickEvent(side.line(lineIndex));
 
                                     side.line(lineIndex, Util.buildMiniMessage(player).deserialize(text));
@@ -78,6 +79,7 @@ public class SignEditCommand {
 
                                     tryLoggingRemoval(player, sign);
                                     sign.update();
+                                    fireSignChange(player, sign, side, frontOrBack);
                                     tryLoggingPlacement(player, sign);
 
                                     return Command.SINGLE_SUCCESS;
@@ -97,17 +99,19 @@ public class SignEditCommand {
                                             checkCommandPredicates(player, sign, Permissions.REPLACE, true);
                                             MiniMessage miniMessage = Util.buildMiniMessage(player);
 
-                                            SignSide side = sign.getTargetSide(player);
+                                            Side frontOrBack = sign.getInteractableSideFor(player);
+                                            SignSide side = sign.getSide(frontOrBack);
 
                                             int i = 0;
                                             boolean success = false;
                                             for (Component line : side.lines()) {
                                                 String raw = miniMessage.serialize(line);
-                                                ClickEvent clickEvent = Util.getFirstClickEvent(line);
+                                                ClickEvent<?> clickEvent = Util.getFirstClickEvent(line);
 
                                                 if (raw.contains(text)) {
                                                     success = true;
                                                 } else {
+                                                    i++;
                                                     continue;
                                                 }
 
@@ -125,6 +129,7 @@ public class SignEditCommand {
                                             }
 
                                             tryLoggingRemoval(player, sign);
+                                            fireSignChange(player, sign, side, frontOrBack);
                                             sign.update();
                                             tryLoggingPlacement(player, sign);
 
@@ -446,6 +451,15 @@ public class SignEditCommand {
         if (CORE_PROTECT_API != null) {
             CORE_PROTECT_API.logRemoval(player.getName(), sign);
         }
+    }
+
+    // Enables coreprotect to roll back sign edits.
+    private static void fireSignChange(Player player, Sign sign, SignSide signSide, Side side) {
+        SignChangeEvent ev = new SignChangeEvent(
+            sign.getBlock(),
+            player,
+            signSide.lines(), side);
+        ev.callEvent();
     }
 
     private static void tryLoggingPlacement(Player player, Sign sign) {

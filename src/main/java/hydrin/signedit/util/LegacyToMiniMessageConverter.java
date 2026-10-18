@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class    LegacyToMiniMessageConverter {
+public class LegacyToMiniMessageConverter {
     private static final Set<Character> FORMATTING_CODES = CharacterAndFormat.defaults().stream()
             .map(CharacterAndFormat::character)
             .collect(Collectors.toSet());
