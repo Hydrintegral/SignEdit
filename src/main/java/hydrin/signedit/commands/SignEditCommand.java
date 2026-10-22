@@ -129,8 +129,8 @@ public class SignEditCommand {
                                             }
 
                                             tryLoggingRemoval(player, sign);
-                                            fireSignChange(player, sign, side, frontOrBack);
                                             sign.update();
+                                            fireSignChange(player, sign, side, frontOrBack);
                                             tryLoggingPlacement(player, sign);
 
                                             return Command.SINGLE_SUCCESS;
@@ -325,10 +325,13 @@ public class SignEditCommand {
                                 // Skip empty lines
                                 if (line.equals(Component.empty())) { continue; }
 
+                                String raw = MINI_MESSAGE.serialize(Util.clearClickEvents(line));
+                                if (raw.isBlank()) { continue; }
+
                                 component.appendNewline()
                                         .resetStyle()
                                         .append(
-                                                line.clickEvent(ClickEvent.copyToClipboard(MINI_MESSAGE.serialize(Util.clearClickEvents(line))))
+                                                line.clickEvent(ClickEvent.copyToClipboard(raw))
                                                 .hoverEvent(HoverEvent.showText(Component.text("Copy to clipboard")))
                                         );
                             }
