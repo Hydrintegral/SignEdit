@@ -330,16 +330,13 @@ public class SignEditCommand {
                                     continue;
                                 }
 
-                                if (!raw.isBlank()) {
-                                    component.appendNewline()
-                                            .resetStyle()
-                                            .append(
-                                                    line.clickEvent(ClickEvent.copyToClipboard(raw))
-                                                            .hoverEvent(HoverEvent.showText(Component.text("Copy to clipboard")))
-                                            );
-
-                                    success = true;
-                                }
+                                component.appendNewline()
+                                        .resetStyle()
+                                        .append(
+                                                line.clickEvent(ClickEvent.copyToClipboard(raw))
+                                                .hoverEvent(HoverEvent.showText(Component.text("Copy to clipboard")))
+                                        );
+                                success = true;
                             }
 
                             if (!success) {
