@@ -324,11 +324,11 @@ public class SignEditCommand {
                             boolean success = false;
 
                             for (Component line : side.lines()) {
-                                if (line.equals(Component.empty())) {
+                                String raw = MINI_MESSAGE.serialize(Util.clearClickEvents(line));
+
+                                if (line.equals(Component.empty()) || raw.isBlank()) {
                                     continue;
                                 }
-
-                                String raw = MINI_MESSAGE.serialize(Util.clearClickEvents(line));
 
                                 if (!raw.isBlank()) {
                                     component.appendNewline()
