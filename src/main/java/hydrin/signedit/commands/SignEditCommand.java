@@ -321,19 +321,31 @@ public class SignEditCommand {
 
                             TextComponent.Builder component = Component.text().append(header);
 
+                            boolean success = false;
+
                             for (Component line : side.lines()) {
-                                // Skip empty lines
-                                if (line.equals(Component.empty())) { continue; }
+                                if (line.equals(Component.empty())) {
+                                    continue;
+                                }
 
                                 String raw = MINI_MESSAGE.serialize(Util.clearClickEvents(line));
-                                if (raw.isBlank()) { continue; }
 
-                                component.appendNewline()
-                                        .resetStyle()
-                                        .append(
-                                                line.clickEvent(ClickEvent.copyToClipboard(raw))
-                                                .hoverEvent(HoverEvent.showText(Component.text("Copy to clipboard")))
-                                        );
+                                if (!raw.isBlank()) {
+                                    component.appendNewline()
+                                            .resetStyle()
+                                            .append(
+                                                    line.clickEvent(ClickEvent.copyToClipboard(raw))
+                                                            .hoverEvent(HoverEvent.showText(Component.text("Copy to clipboard")))
+                                            );
+
+                                    success = true;
+                                }
+                            }
+
+                            if (!success) {
+                                player.sendRichMessage("<red>Nothing found to print!");
+
+                                return Command.SINGLE_SUCCESS;
                             }
 
                             component.appendNewline().resetStyle().append(footer);
