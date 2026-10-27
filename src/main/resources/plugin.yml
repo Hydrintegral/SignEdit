@@ -50,6 +50,8 @@ permissions:
   signedit.formatting.heads:
     descriptions:
       "Permits usage of player head sprites"
+  signedit.formatting.mineskin:
+      "Permits usage of MineSkin head sprites"
   signedit.formatting.sprites:
     description:
       "Permits usage of texture atlas sprites"

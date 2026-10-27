@@ -1,12 +1,18 @@
 package hydrin.signedit.util;
 
+import com.destroystokyo.paper.profile.ProfileProperty;
+import hydrin.signedit.MineSkinFetcher;
+import hydrin.signedit.MineSkinTag;
 import hydrin.signedit.Permissions;
+import io.papermc.paper.datacomponent.item.ResolvableProfile;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.kyori.adventure.text.object.ObjectContents;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
@@ -112,6 +118,10 @@ public class Util {
 
         if (sender.hasPermission(Permissions.FORMATTING_HEADS)) {
             builder.resolver(StandardTags.sequentialHead());
+        }
+
+        if (sender.hasPermission(Permissions.FORMATTING_MINESKIN)) {
+            builder.resolver(MineSkinTag.RESOLVER);
         }
 
         if (sender.hasPermission(Permissions.FORMATTING_SPRITES)) {

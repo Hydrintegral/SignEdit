@@ -18,6 +18,7 @@ public class Permissions {
     public static final String FORMATTING_STYLE = "signedit.formatting.style";
     public static final String FORMATTING_MAGIC = "signedit.formatting.magic";
     public static final String FORMATTING_HEADS = "signedit.formatting.heads";
+    public static final String FORMATTING_MINESKIN = "signedit.formatting.mineskin";
     public static final String FORMATTING_SPRITES = "signedit.formatting.sprites";
     public static final String FORMATTING_MISC = "signedit.formatting.misc";
 }

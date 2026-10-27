@@ -9,6 +9,7 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.plotsquared.core.permissions.Permission;
 import com.plotsquared.core.player.PlotPlayer;
+import hydrin.signedit.MineSkinTag;
 import hydrin.signedit.Permissions;
 import hydrin.signedit.SignEdit;
 import hydrin.signedit.util.LegacyToMiniMessageConverter;
@@ -22,6 +23,7 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -35,7 +37,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
 
 public class SignEditCommand {
-    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.builder(MiniMessage.Preset.DEFAULT)
+            .tags(MineSkinTag.RESOLVER).build();
+
     private static final CoreProtectAPI CORE_PROTECT_API = SignEdit.getCoreProtectAPI();
 
     private static final SimpleCommandExceptionType ERROR_NOT_A_SIGN = new SimpleCommandExceptionType(
