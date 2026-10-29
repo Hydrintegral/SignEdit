@@ -22,8 +22,6 @@ public class MineSkinFetcher {
             JsonObject data = json.getAsJsonObject("data");
             JsonObject texture = data.getAsJsonObject("texture");
 
-            System.out.println("BEEP BOOP: " + texture.get("value").getAsString());
-
             return texture.get("value").getAsString();
         } catch (IOException _) {
             return null;
