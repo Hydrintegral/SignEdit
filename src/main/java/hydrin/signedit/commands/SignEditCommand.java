@@ -38,7 +38,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 public class SignEditCommand {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.builder(MiniMessage.Preset.DEFAULT)
-            .tags(MineSkinTag.RESOLVER).build();
+            .editTags(tags -> tags.resolver(MineSkinTag.RESOLVER)).build();
 
     private static final CoreProtectAPI CORE_PROTECT_API = SignEdit.getCoreProtectAPI();
 
@@ -320,7 +320,7 @@ public class SignEditCommand {
                                     "<gray><st>          <reset><aqua> Click a line to copy: <gray><st>          "
                             );
                             Component footer = MINI_MESSAGE.deserialize(
-                                    "<gray><st>                                              <bold>\u200C"
+                                    "<gray><st>                                              <bold>\u200C <mineskin:c957d5b78bc541beba2652e26c00b3b2>"
                             );
 
                             TextComponent.Builder component = Component.text().append(header);
