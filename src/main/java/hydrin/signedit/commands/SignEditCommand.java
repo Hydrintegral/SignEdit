@@ -320,7 +320,7 @@ public class SignEditCommand {
                                     "<gray><st>          <reset><aqua> Click a line to copy: <gray><st>          "
                             );
                             Component footer = MINI_MESSAGE.deserialize(
-                                    "<gray><st>                                              <bold>\u200C <mineskin:c957d5b78bc541beba2652e26c00b3b2>"
+                                    "<gray><st>                                              <bold>\u200C"
                             );
 
                             TextComponent.Builder component = Component.text().append(header);
