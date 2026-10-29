@@ -13,7 +13,6 @@ public final class SignEdit extends JavaPlugin {
     private static final String COREPROTECT_NAME = "CoreProtect";
 
     private static boolean plotSquared = false;
-    private static boolean coreProtect = true;
 
     private static CoreProtectAPI coreProtectAPI;
 
@@ -22,11 +21,7 @@ public final class SignEdit extends JavaPlugin {
         PluginManager plugins = Bukkit.getServer().getPluginManager();
 
         if (plugins.isPluginEnabled(PLOTSQUARED_NAME)) { plotSquared = true; }
-        if (plugins.isPluginEnabled(COREPROTECT_NAME)) {
-            coreProtect = true;
-
-            coreProtectAPI = ((CoreProtect) plugins.getPlugin(COREPROTECT_NAME)).getAPI();
-        }
+        if (plugins.isPluginEnabled(COREPROTECT_NAME)) { coreProtectAPI = ((CoreProtect) plugins.getPlugin(COREPROTECT_NAME)).getAPI(); }
 
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             event.registrar()
@@ -36,17 +31,8 @@ public final class SignEdit extends JavaPlugin {
         });
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
     public static boolean hasPlotSquared() {
         return plotSquared;
-    }
-
-    public static boolean hasCoreProtect() {
-        return coreProtect;
     }
 
     public static CoreProtectAPI getCoreProtectAPI() {

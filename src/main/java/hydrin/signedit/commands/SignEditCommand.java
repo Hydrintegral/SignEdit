@@ -19,11 +19,11 @@ import io.papermc.paper.command.brigadier.Commands;
 import net.coreprotect.CoreProtectAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -62,7 +62,7 @@ public class SignEditCommand {
 
                             return builder.buildFuture();
                         })
-                        .then(Commands.argument("text", StringArgumentType.greedyString())
+                        .then(Commands.argument("text", StringArgumentType.string())
                                 .executes(context -> {
                                     Player player = context.getSource().getPlayerOrThrow();
                                     int lineIndex = context.getArgument("line", int.class) - 1;
@@ -96,40 +96,27 @@ public class SignEditCommand {
                                         .executes(context -> {
                                             Player player = context.getSource().getPlayerOrThrow();
                                             String text = context.getArgument("text", String.class);
-                                            String with = context.getArgument("with", String.class);
+                                            String with = LegacyToMiniMessageConverter.convert(
+                                                    context.getArgument("with", String.class)
+                                            );
 
                                             Sign sign = getTargetedSignOrThrow(player);
 
                                             checkCommandPredicates(player, sign, Permissions.REPLACE, true);
                                             MiniMessage miniMessage = Util.buildMiniMessage(player);
+                                            TextReplacementConfig replacer = TextReplacementConfig.builder()
+                                                    .matchLiteral(text)
+                                                    .replacement(miniMessage.deserialize(with))
+                                                    .build();
 
                                             Side frontOrBack = sign.getInteractableSideFor(player);
                                             SignSide side = sign.getSide(frontOrBack);
 
                                             int i = 0;
-                                            boolean success = false;
                                             for (Component line : side.lines()) {
-                                                String raw = miniMessage.serialize(line);
-                                                ClickEvent<?> clickEvent = Util.getFirstClickEvent(line);
-
-                                                if (raw.contains(text)) {
-                                                    success = true;
-                                                } else {
-                                                    i++;
-                                                    continue;
-                                                }
-
-                                                side.line(i, miniMessage.deserialize(raw.replace(text, with)));
-
-                                                if (clickEvent != null) { side.line(i, side.line(i).clickEvent(clickEvent)); }
+                                                side.line(i, line.replaceText(replacer));
 
                                                 i++;
-                                            }
-
-                                            if (!success) {
-                                                player.sendRichMessage("<red>Nothing found to replace!");
-
-                                                return Command.SINGLE_SUCCESS;
                                             }
 
                                             tryLoggingRemoval(player, sign);
