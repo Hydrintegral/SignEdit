@@ -4,6 +4,7 @@ import hydrin.signedit.MineSkinTag;
 import hydrin.signedit.Permissions;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -76,6 +77,18 @@ public class Util {
 
             for (Component child : component.children()) {
                 component = clearClickEvents(child);
+            }
+        }
+
+        return component;
+    }
+
+    public static Component clearHoverEvents(Component component) {
+        if (component.hoverEvent() != null) {
+            component = component.hoverEvent(HoverEvent.showText(null));
+
+            for (Component child : component.children()) {
+                component = clearHoverEvents(child);
             }
         }
 

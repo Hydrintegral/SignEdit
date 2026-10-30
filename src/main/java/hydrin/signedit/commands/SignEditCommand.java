@@ -301,8 +301,7 @@ public class SignEditCommand {
                             SignSide side = sign.getTargetSide(player);
 
                             // (The bold zero-width non-joiner adds 1 texel of size, which makes the header and footer
-                            // the same width)
-                            // This looks nicer in game, I promise
+                            // the same width). This looks nicer in game, I promise!!
                             Component header = MINI_MESSAGE.deserialize(
                                     "<gray><st>          <reset><aqua> Click a line to copy: <gray><st>          "
                             );
@@ -315,7 +314,9 @@ public class SignEditCommand {
                             boolean success = false;
 
                             for (Component line : side.lines()) {
-                                String raw = MINI_MESSAGE.serialize(Util.clearClickEvents(line));
+                                line = Util.clearClickEvents(Util.clearHoverEvents(line));
+
+                                String raw = MINI_MESSAGE.serialize(line);
 
                                 if (line.equals(Component.empty()) || raw.isBlank()) {
                                     continue;
@@ -331,7 +332,7 @@ public class SignEditCommand {
                             }
 
                             if (!success) {
-                                player.sendRichMessage("<red>Nothing found to print!");
+                                player.sendRichMessage("<red>Found nothing to print!");
 
                                 return Command.SINGLE_SUCCESS;
                             }
@@ -358,7 +359,7 @@ public class SignEditCommand {
                                     "<gray><st>                                              <bold>\u200C"
                             );
                             Component disclaimer = MINI_MESSAGE.deserialize(
-                                    "<white>Commands that modify signs will target the sign face that you're looking at:"
+                                    "<white>Commands will target the sign face that you're looking at:"
                             );
 
                             TextComponent.Builder component = Component.text()
@@ -457,6 +458,7 @@ public class SignEditCommand {
     }
 
     // Enables coreprotect to roll back sign edits.
+    @SuppressWarnings("UnstableApiUsage")
     private static void fireSignChange(Player player, Sign sign, SignSide signSide, Side side) {
         SignChangeEvent ev = new SignChangeEvent(
             sign.getBlock(),

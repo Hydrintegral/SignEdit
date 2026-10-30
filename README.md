@@ -4,7 +4,7 @@ SignEdit is a simple, but advanced sign editor paper plugin with built in [PlotS
 
 ## Commands
 
-Commands that modify signs will target the sign face that you're looking at:
+Commands will target the sign face that you're looking at:
 
 | Command                                 | Description                                                                             | Permission            |
 |-----------------------------------------|-----------------------------------------------------------------------------------------|-----------------------|
