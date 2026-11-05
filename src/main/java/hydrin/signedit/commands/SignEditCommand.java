@@ -268,7 +268,7 @@ public class SignEditCommand {
                                         newFront.line(i, front.line(i));
                                         newBack.line(i, back.line(i));
                                     }
-                                    newFront.setColor(front.getColor());;
+                                    newFront.setColor(front.getColor());
                                     newBack.setColor(back.getColor());
 
                                     newFront.setGlowingText(front.isGlowingText());
@@ -314,7 +314,7 @@ public class SignEditCommand {
                             boolean success = false;
 
                             for (Component line : side.lines()) {
-                                line = Util.clearClickEvents(Util.clearHoverEvents(line));
+                                line = Util.clearClickEvents(line);
 
                                 String raw = MINI_MESSAGE.serialize(line);
 
@@ -421,7 +421,7 @@ public class SignEditCommand {
             return sign;
         }
 
-        return null;
+        throw ERROR_NOT_A_SIGN.create();
     }
 
     private static boolean canEditSign(Player sender, Sign sign) {

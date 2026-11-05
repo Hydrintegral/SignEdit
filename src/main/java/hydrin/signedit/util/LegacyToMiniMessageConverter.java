@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LegacyToMiniMessageConverter {
+public abstract class LegacyToMiniMessageConverter {
     private static final Set<Character> FORMATTING_CODES = CharacterAndFormat.defaults().stream()
             .map(CharacterAndFormat::character)
             .collect(Collectors.toSet());
@@ -20,7 +20,7 @@ public class LegacyToMiniMessageConverter {
             int remaining = string.length() - i + 1;
 
             if (remaining <= 8) {
-                substring = string.substring(i, string.length());
+                substring = string.substring(i);
             } else {
                 // The second argument of String#substring is exclusive
                 substring = string.substring(i, i + 8);
