@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-public class MineSkinFetcher {
+public abstract class MineSkinFetcher {
     private static final String MINESKIN_URL = "https://api.mineskin.org/get/uuid/";
 
     public static String getValue(String id) {

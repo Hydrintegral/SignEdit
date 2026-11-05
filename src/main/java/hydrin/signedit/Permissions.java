@@ -1,6 +1,6 @@
 package hydrin.signedit;
 
-public class Permissions {
+public abstract class Permissions {
     // Commands
     public static final String EDIT = "signedit.edit";
     public static final String REPLACE = "signedit.replace";

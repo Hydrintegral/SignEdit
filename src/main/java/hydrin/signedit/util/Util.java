@@ -4,7 +4,6 @@ import hydrin.signedit.MineSkinTag;
 import hydrin.signedit.Permissions;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -15,7 +14,7 @@ import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Rotatable;
 import org.bukkit.command.CommandSender;
 
-public class Util {
+public abstract class Util {
     public static BlockData translateRotation(BlockData oldData, BlockData newData) {
         if (oldData instanceof Rotatable rot && newData instanceof Directional dir) {
             if (rot.getRotation().isCartesian()) {
@@ -77,18 +76,6 @@ public class Util {
 
             for (Component child : component.children()) {
                 component = clearClickEvents(child);
-            }
-        }
-
-        return component;
-    }
-
-    public static Component clearHoverEvents(Component component) {
-        if (component.hoverEvent() != null) {
-            component = component.hoverEvent(HoverEvent.showText(null));
-
-            for (Component child : component.children()) {
-                component = clearHoverEvents(child);
             }
         }
 
