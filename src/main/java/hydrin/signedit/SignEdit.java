@@ -21,9 +21,7 @@ public final class SignEdit extends JavaPlugin {
         PluginManager plugins = Bukkit.getServer().getPluginManager();
 
         if (plugins.isPluginEnabled(PLOTSQUARED_NAME)) { plotSquared = true; }
-        if (plugins.isPluginEnabled(COREPROTECT_NAME)) {
-            coreProtectAPI = ((CoreProtect) plugins.getPlugin(COREPROTECT_NAME)).getAPI();
-        }
+        if (plugins.isPluginEnabled(COREPROTECT_NAME)) { coreProtectAPI = ((CoreProtect) plugins.getPlugin(COREPROTECT_NAME)).getAPI(); }
 
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> event.registrar()
                 .register(
