@@ -1,7 +1,7 @@
 name: SignEdit
 version: "${version}"
 
-main: hydrin.signedit.SignEdit
+main: dev.hydrin.signedit.SignEdit
 api-version: "26.2"
 load: POSTWORLD
 

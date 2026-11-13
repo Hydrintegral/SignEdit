@@ -1,4 +1,4 @@
-package hydrin.signedit;
+package dev.hydrin.signedit;
 
 import com.destroystokyo.paper.profile.ProfileProperty;
 import io.papermc.paper.datacomponent.item.ResolvableProfile;

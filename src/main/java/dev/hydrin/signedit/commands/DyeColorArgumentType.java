@@ -1,4 +1,4 @@
-package hydrin.signedit.commands;
+package dev.hydrin.signedit.commands;
 
 import com.mojang.brigadier.LiteralMessage;
 import com.mojang.brigadier.arguments.ArgumentType;

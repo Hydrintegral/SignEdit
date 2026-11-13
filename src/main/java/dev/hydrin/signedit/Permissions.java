@@ -1,4 +1,4 @@
-package hydrin.signedit;
+package dev.hydrin.signedit;
 
 public abstract class Permissions {
     // Commands

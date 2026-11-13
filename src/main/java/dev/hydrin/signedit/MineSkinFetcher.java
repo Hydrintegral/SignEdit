@@ -1,4 +1,4 @@
-package hydrin.signedit;
+package dev.hydrin.signedit;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

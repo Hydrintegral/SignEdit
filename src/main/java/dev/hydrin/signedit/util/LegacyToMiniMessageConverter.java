@@ -1,4 +1,4 @@
-package hydrin.signedit.util;
+package dev.hydrin.signedit.util;
 
 import net.kyori.adventure.text.serializer.legacy.CharacterAndFormat;
 

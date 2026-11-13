@@ -1,4 +1,4 @@
-package hydrin.signedit.commands;
+package dev.hydrin.signedit.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.LiteralMessage;
@@ -9,11 +9,11 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.plotsquared.core.permissions.Permission;
 import com.plotsquared.core.player.PlotPlayer;
-import hydrin.signedit.MineSkinTag;
-import hydrin.signedit.Permissions;
-import hydrin.signedit.SignEdit;
-import hydrin.signedit.util.LegacyToMiniMessageConverter;
-import hydrin.signedit.util.Util;
+import dev.hydrin.signedit.MineSkinTag;
+import dev.hydrin.signedit.Permissions;
+import dev.hydrin.signedit.SignEdit;
+import dev.hydrin.signedit.util.LegacyToMiniMessageConverter;
+import dev.hydrin.signedit.util.Util;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.coreprotect.CoreProtectAPI;
@@ -369,7 +369,7 @@ public class SignEditCommand {
                                     .append(disclaimer)
                                     .appendNewline();
 
-                            for (hydrin.signedit.commands.Command command : hydrin.signedit.commands.Command.values()) {
+                            for (dev.hydrin.signedit.commands.Command command : dev.hydrin.signedit.commands.Command.values()) {
                                 component.appendNewline()
                                         .resetStyle()
                                         .append(Component.text("/").color(NamedTextColor.GRAY))

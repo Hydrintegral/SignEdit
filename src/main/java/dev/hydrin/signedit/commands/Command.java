@@ -1,4 +1,4 @@
-package hydrin.signedit.commands;
+package dev.hydrin.signedit.commands;
 
 public enum Command {
     EDIT("edit", "<line> <text>", "Modifies the text on the specified line."),

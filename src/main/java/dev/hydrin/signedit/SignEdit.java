@@ -1,6 +1,6 @@
-package hydrin.signedit;
+package dev.hydrin.signedit;
 
-import hydrin.signedit.commands.SignEditCommand;
+import dev.hydrin.signedit.commands.SignEditCommand;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;

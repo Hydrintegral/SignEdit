@@ -1,7 +1,7 @@
-package hydrin.signedit.util;
+package dev.hydrin.signedit.util;
 
-import hydrin.signedit.MineSkinTag;
-import hydrin.signedit.Permissions;
+import dev.hydrin.signedit.MineSkinTag;
+import dev.hydrin.signedit.Permissions;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextDecoration;
